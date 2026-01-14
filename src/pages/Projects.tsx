@@ -3,7 +3,6 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import PageTransition from "@/components/PageTransition";
-import Starfield from "@/components/Starfield";
 
 const projects = [
   {
@@ -54,7 +53,6 @@ const Projects = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
-        <Starfield />
         <Navigation />
 
         <section className="pt-32 pb-20 relative overflow-hidden">

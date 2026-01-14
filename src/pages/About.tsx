@@ -5,7 +5,6 @@ import TechIcon from "@/components/TechIcon";
 import SkillBar from "@/components/SkillBar";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
-import Starfield from "@/components/Starfield";
 import { Check } from "lucide-react";
 
 const techStack = [
@@ -50,7 +49,6 @@ const About = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
-        <Starfield />
         <Navigation />
 
         {/* What I Do Section */}

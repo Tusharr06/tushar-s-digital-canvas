@@ -7,13 +7,11 @@ import Footer from "@/components/Footer";
 import SocialButton from "@/components/SocialButton";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
-import Starfield from "@/components/Starfield";
 
 const Index = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
-        <Starfield />
         <Navigation />
 
         {/* Hero Section */}
