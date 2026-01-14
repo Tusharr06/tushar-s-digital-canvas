@@ -1,42 +1,43 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown, Github, Linkedin, Mail, Download } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import SocialButton from "@/components/SocialButton";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
+import ParallaxBackground from "@/components/ParallaxBackground";
 
 const Index = () => {
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const illustrationY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const illustrationScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
+        <ParallaxBackground />
         <Navigation />
 
         {/* Hero Section */}
-        <section className="min-h-screen flex items-center relative overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <motion.div
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl"
-              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 8, repeat: Infinity }}
-            />
-            <motion.div
-              className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl"
-              animate={{ scale: [1.2, 1, 1.2], opacity: [0.3, 0.5, 0.3] }}
-              transition={{ duration: 6, repeat: Infinity, delay: 1 }}
-            />
-          </div>
-
+        <section
+          ref={heroRef}
+          className="min-h-screen flex items-center relative overflow-hidden"
+        >
           <div className="container mx-auto px-6 pt-24 relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Content */}
               <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, staggerChildren: 0.15 }}
+                style={{ y: heroY, opacity: heroOpacity }}
                 className="text-left"
               >
                 <motion.div
@@ -116,6 +117,7 @@ const Index = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
+                style={{ y: illustrationY, scale: illustrationScale }}
                 className="hidden lg:flex items-center justify-center"
               >
                 <AnimatedIllustration variant="hero" />

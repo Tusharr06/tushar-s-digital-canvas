@@ -1,10 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import TechIcon from "@/components/TechIcon";
 import SkillBar from "@/components/SkillBar";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
+import ParallaxBackground from "@/components/ParallaxBackground";
+import ParallaxSection from "@/components/ParallaxSection";
 import { Check } from "lucide-react";
 
 const techStack = [
@@ -26,6 +29,15 @@ const skills = [
 ];
 
 const About = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const illustrationY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [50, -50]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -49,14 +61,11 @@ const About = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
+        <ParallaxBackground />
         <Navigation />
 
         {/* What I Do Section */}
-        <section className="pt-32 pb-20 relative overflow-hidden">
-          {/* Background Glow */}
-          <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2" />
-          <div className="absolute bottom-0 right-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-
+        <section ref={sectionRef} className="pt-32 pb-20 relative overflow-hidden">
           <div className="container mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Left - Illustration */}
@@ -65,6 +74,7 @@ const About = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
+                style={{ y: illustrationY }}
                 className="order-2 lg:order-1"
               >
                 <AnimatedIllustration variant="about" />
@@ -76,6 +86,7 @@ const About = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
+                style={{ y: contentY }}
                 className="order-1 lg:order-2"
               >
                 <motion.span
@@ -137,7 +148,7 @@ const About = () => {
         <section className="py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
           
-          <div className="container mx-auto px-6 relative z-10">
+          <ParallaxSection speed={0.2} className="container mx-auto px-6 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -169,7 +180,7 @@ const About = () => {
                 delay={0.4}
               />
             </div>
-          </div>
+          </ParallaxSection>
         </section>
 
         <Footer />
