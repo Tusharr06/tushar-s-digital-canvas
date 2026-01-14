@@ -1,9 +1,11 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Github, Linkedin, Mail, MapPin, Coffee } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
+import ParallaxBackground from "@/components/ParallaxBackground";
 
 const contactLinks = [
   {
@@ -30,6 +32,16 @@ const contactLinks = [
 ];
 
 const Contact = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const contentY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const illustrationY = useTransform(scrollYProgress, [0, 1], [80, -80]);
+  const illustrationRotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -53,13 +65,10 @@ const Contact = () => {
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
+        <ParallaxBackground />
         <Navigation />
 
-        <section className="pt-32 pb-20 relative overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute top-1/3 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-
+        <section ref={sectionRef} className="pt-32 pb-20 relative overflow-hidden">
           <div className="container mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Left Content */}
@@ -67,6 +76,7 @@ const Contact = () => {
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
+                style={{ y: contentY }}
               >
                 <motion.span
                   variants={itemVariants}
@@ -142,11 +152,12 @@ const Contact = () => {
                 </motion.div>
               </motion.div>
 
-              {/* Right - Illustration */}
+              {/* Right - Illustration with parallax */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
+                style={{ y: illustrationY, rotate: illustrationRotate }}
                 className="hidden lg:flex items-center justify-center"
               >
                 <AnimatedIllustration variant="contact" />

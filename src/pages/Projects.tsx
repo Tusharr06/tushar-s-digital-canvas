@@ -1,8 +1,10 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import PageTransition from "@/components/PageTransition";
+import ParallaxBackground from "@/components/ParallaxBackground";
 
 const projects = [
   {
@@ -50,19 +52,27 @@ const projects = [
 ];
 
 const Projects = () => {
+  const headerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: headerRef,
+    offset: ["start start", "end start"],
+  });
+
+  const headerY = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const headerOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-background relative">
+        <ParallaxBackground />
         <Navigation />
 
         <section className="pt-32 pb-20 relative overflow-hidden">
-          {/* Background Elements */}
-          <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl" />
-
           <div className="container mx-auto px-6 relative z-10">
-            {/* Header */}
+            {/* Header with parallax */}
             <motion.div
+              ref={headerRef}
+              style={{ y: headerY, opacity: headerOpacity }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -80,15 +90,12 @@ const Projects = () => {
               </p>
             </motion.div>
 
-            {/* Projects Grid */}
+            {/* Projects Grid with staggered parallax */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project, index) => (
-                <ProjectCard
+                <ProjectCardWithParallax
                   key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  techStack={project.techStack}
-                  githubUrl={project.githubUrl}
+                  project={project}
                   index={index}
                 />
               ))}
@@ -125,6 +132,37 @@ const Projects = () => {
         <Footer />
       </div>
     </PageTransition>
+  );
+};
+
+// Individual project card with parallax
+const ProjectCardWithParallax = ({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+}) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Different parallax speeds based on column position
+  const speed = (index % 3) * 0.1 + 0.2;
+  const y = useTransform(scrollYProgress, [0, 1], [50 * speed, -50 * speed]);
+
+  return (
+    <motion.div ref={ref} style={{ y }}>
+      <ProjectCard
+        title={project.title}
+        description={project.description}
+        techStack={project.techStack}
+        githubUrl={project.githubUrl}
+        index={index}
+      />
+    </motion.div>
   );
 };
 
