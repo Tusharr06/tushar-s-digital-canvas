@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Send, MapPin, Coffee } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Github, Linkedin, Mail, MapPin, Coffee } from "lucide-react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
+import Starfield from "@/components/Starfield";
 
 const contactLinks = [
   {
@@ -53,7 +53,8 @@ const Contact = () => {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background relative">
+        <Starfield />
         <Navigation />
 
         <section className="pt-32 pb-20 relative overflow-hidden">
