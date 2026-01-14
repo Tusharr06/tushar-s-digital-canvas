@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import TechIcon from "@/components/TechIcon";
 import SkillBar from "@/components/SkillBar";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
@@ -11,14 +10,14 @@ import ParallaxSection from "@/components/ParallaxSection";
 import { Check } from "lucide-react";
 
 const techStack = [
-  { name: "Flutter", icon: "💙" },
-  { name: "Dart", icon: "🎯" },
-  { name: "Java", icon: "☕" },
-  { name: "Spring Boot", icon: "🍃" },
-  { name: "Python", icon: "🐍" },
-  { name: "Firebase", icon: "🔥" },
-  { name: "SQL", icon: "🗃️" },
-  { name: "Git", icon: "📦" },
+  { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" },
+  { name: "Dart", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" },
+  { name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+  { name: "Spring Boot", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" },
+  { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+  { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" },
+  { name: "SQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" },
+  { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
 ];
 
 const skills = [
@@ -182,8 +181,6 @@ const About = () => {
             </div>
           </ParallaxSection>
         </section>
-
-        <Footer />
       </div>
     </PageTransition>
   );

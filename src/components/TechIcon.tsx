@@ -22,6 +22,9 @@ const techColors: Record<string, string> = {
 const TechIcon = ({ name, icon, color, className }: TechIconProps) => {
   const gradientColor = color || techColors[name.toLowerCase()] || "from-primary to-accent";
   
+  // Check if icon is a URL (logo) or emoji
+  const isLogoUrl = icon.startsWith('http');
+  
   return (
     <motion.div
       className={cn(
@@ -40,7 +43,15 @@ const TechIcon = ({ name, icon, color, className }: TechIconProps) => {
           "absolute inset-0 rounded-xl bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300",
           gradientColor
         )} />
-        <span className="text-3xl relative z-10">{icon}</span>
+        {isLogoUrl ? (
+          <img 
+            src={icon} 
+            alt={`${name} logo`} 
+            className="w-8 h-8 relative z-10 object-contain"
+          />
+        ) : (
+          <span className="text-3xl relative z-10">{icon}</span>
+        )}
       </div>
       <span className="text-xs font-medium text-muted-foreground group-hover:text-foreground transition-colors">
         {name}

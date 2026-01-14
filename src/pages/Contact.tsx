@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Github, Linkedin, Mail, MapPin, Coffee } from "lucide-react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
 import ParallaxBackground from "@/components/ParallaxBackground";
@@ -11,8 +10,8 @@ const contactLinks = [
   {
     icon: Mail,
     label: "Email",
-    value: "tushar@example.com",
-    href: "mailto:tushar@example.com",
+    value: "tusharraju05@gmail.com",
+    href: "mailto:tusharraju05@gmail.com",
     color: "from-red-500 to-orange-500",
   },
   {
@@ -26,7 +25,7 @@ const contactLinks = [
     icon: Linkedin,
     label: "LinkedIn",
     value: "Connect with me",
-    href: "#",
+    href: "https://www.linkedin.com/in/tushar-r-b115392b2",
     color: "from-blue-500 to-blue-700",
   },
 ];
@@ -179,8 +178,6 @@ const Contact = () => {
             </motion.div>
           </div>
         </section>
-
-        <Footer />
       </div>
     </PageTransition>
   );

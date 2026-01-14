@@ -1,7 +1,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import ProjectCard from "@/components/ProjectCard";
 import PageTransition from "@/components/PageTransition";
 import ParallaxBackground from "@/components/ParallaxBackground";
@@ -128,8 +127,6 @@ const Projects = () => {
             </motion.div>
           </div>
         </section>
-
-        <Footer />
       </div>
     </PageTransition>
   );

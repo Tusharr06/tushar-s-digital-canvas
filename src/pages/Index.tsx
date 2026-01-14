@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import SocialButton from "@/components/SocialButton";
 import AnimatedIllustration from "@/components/AnimatedIllustration";
 import PageTransition from "@/components/PageTransition";
@@ -88,8 +87,8 @@ const Index = () => {
                   className="flex items-center gap-4 mb-8"
                 >
                   <SocialButton icon={Github} href="https://github.com/Tusharr06" label="GitHub" />
-                  <SocialButton icon={Linkedin} href="#" label="LinkedIn" />
-                  <SocialButton icon={Mail} href="mailto:tushar@example.com" label="Email" />
+                  <SocialButton icon={Linkedin} href="https://www.linkedin.com/in/tushar-r-b115392b2" label="LinkedIn" />
+                  <SocialButton icon={Mail} href="mailto:tusharraju05@gmail.com" label="Email" />
                 </motion.div>
 
                 {/* CTA Buttons */}
@@ -105,10 +104,6 @@ const Index = () => {
                       Contact Me
                     </Button>
                   </Link>
-                  <Button size="lg" variant="outline" className="border-border hover:border-primary/50 hover:bg-primary/5 group">
-                    <Download className="w-4 h-4 mr-2 group-hover:translate-y-0.5 transition-transform" />
-                    Download Resume
-                  </Button>
                 </motion.div>
               </motion.div>
 
@@ -123,27 +118,8 @@ const Index = () => {
                 <AnimatedIllustration variant="hero" />
               </motion.div>
             </div>
-
-            {/* Scroll Indicator */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.5 }}
-              className="absolute bottom-8 left-1/2 -translate-x-1/2"
-            >
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="flex flex-col items-center gap-2 text-muted-foreground"
-              >
-                <span className="text-xs font-medium">Scroll to explore</span>
-                <ArrowDown className="w-4 h-4" />
-              </motion.div>
-            </motion.div>
           </div>
         </section>
-
-        <Footer />
       </div>
     </PageTransition>
   );
